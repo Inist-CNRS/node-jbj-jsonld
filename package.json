@@ -1,0 +1,38 @@
+{
+  "name": "jbj-jsonld",
+  "version": "1.0.0",
+  "description": "JBJ JSON-LD module",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "babel-istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
+    "prepublish": "npm run build",
+    "pretest": "npm run lint",
+    "lint": "eslint src",
+    "build": "babel src --out-dir lib --source-maps inline"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Inist-CNRS/node-jbj-jsonld.git"
+  },
+  "keywords": [
+    "JSON-LD",
+    "jbj",
+    "JSON"
+  ],
+  "author": "François Parmentier <francois.parmentier@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Inist-CNRS/node-jbj-jsonld/issues"
+  },
+  "homepage": "https://github.com/Inist-CNRS/node-jbj-jsonld#readme",
+  "devDependencies": {
+    "babel-cli": "^6.9.0",
+    "babel-core": "^6.9.0",
+    "babel-eslint": "^6.0.4",
+    "babel-istanbul": "^0.8.0",
+    "babel-preset-es2015": "^6.9.0",
+    "eslint": "^2.10.2",
+    "jbj": "^4.1.2",
+    "mocha": "^2.4.5"
+  }
+}
