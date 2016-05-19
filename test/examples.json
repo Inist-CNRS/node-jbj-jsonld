@@ -1,0 +1,19 @@
+{
+    "Associate a scheme to a field": {
+        "input": {
+            "title": "A great title"
+        },
+        "stylesheet": {
+            "ldScheme": [ "title", "http://purl.org/dc/terms/title" ]
+        },
+        "expected": {
+            "@context": {
+                "title": {
+                    "@id": "http://purl.org/dc/terms/title",
+                    "@language": null
+                }
+            },
+            "title": "A great title"
+        }
+    }
+}
