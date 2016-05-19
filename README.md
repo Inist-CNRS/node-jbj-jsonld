@@ -86,7 +86,7 @@ See unit tests : https://github.com/Inist-CNRS/node-jbj-jsonld/tree/master/test
 
 http://Inist-CNRS.github.io/jbj-playground/
 
-(don't forget to click on RDFa button -- when it will exist)
+(don't forget to click on JSON-LD button -- when it will exist)
 
 ## License
 
