@@ -66,8 +66,7 @@ Get the value of the field which URI is given in parameter, and declared in the
     "expected": {
         "@context": {
             "title": {
-                "@id": "http://purl.org/dc/terms/title",
-                "@language": null
+                "@id": "http://purl.org/dc/terms/title"
             }
         },
         "title": "A great title"
