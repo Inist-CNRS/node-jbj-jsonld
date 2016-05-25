@@ -14,5 +14,94 @@
             },
             "title": "A great title"
         }
+    },
+    "Contextualize a field": {
+        "input": {
+            "access": true
+        },
+        "stylesheet": {
+            "contextualize": {
+                "access": {
+                    "@id" : "https://schema.org/isAccessibleForFree",
+                    "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+                }
+            }
+        },
+        "expected": {
+            "@context": {
+                "access": {
+                  "@id": "https://schema.org/isAccessibleForFree",
+                  "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+                }
+            },
+            "access": true
+        }
+    },
+    "Output an expanded JSON-LD": {
+        "input": {
+            "@context": {
+                "access": {
+                  "@id": "https://schema.org/isAccessibleForFree",
+                  "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+                }
+            },
+            "access": true
+        },
+        "stylesheet": {
+            "jsonld": "expanded"
+        },
+        "expected": [
+            {
+                "https://schema.org/isAccessibleForFree": [
+                    {
+                    "@type": "https://www.w3.org/TR/xmlschema-2/#boolean",
+                    "@value": true
+                    }
+                ]
+            }
+        ]
+    },
+    "Output a compacted JSON-LD": {
+        "input": {
+            "@context": {
+                "access": {
+                  "@id": "https://schema.org/isAccessibleForFree",
+                  "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+                }
+            },
+            "access": true
+        },
+        "stylesheet": {
+            "jsonld": "compacted"
+        },
+        "expected": {
+            "https://schema.org/isAccessibleForFree": {
+                "@type": "https://www.w3.org/TR/xmlschema-2/#boolean",
+                "@value": true
+            }
+        }
+    },
+    "Output a compacted JSON-LD": {
+        "input": {
+            "@context": {
+                "access": {
+                  "@id": "https://schema.org/isAccessibleForFree",
+                  "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+                }
+            },
+            "access": true
+        },
+        "stylesheet": {
+            "jsonld": "flattened"
+        },
+        "expected": {
+            "@graph": [{
+                "@id": "_:b0",
+                "https://schema.org/isAccessibleForFree": {
+                    "@type": "https://www.w3.org/TR/xmlschema-2/#boolean",
+                    "@value": true
+                }
+            }]
+        }
     }
 }
