@@ -1,40 +1,72 @@
 {
-    "Associate a scheme to a field": {
+    "Generate a valid @context": {
         "input": {
-            "title": "A great title"
         },
         "stylesheet": {
-            "ldScheme": [ "title", "http://purl.org/dc/terms/title" ]
-        },
-        "expected": {
-            "@context": {
+            "context": {
                 "title": {
-                    "@id": "http://purl.org/dc/terms/title"
-                }
-            },
-            "title": "A great title"
-        }
-    },
-    "Contextualize a field": {
-        "input": {
-            "access": true
-        },
-        "stylesheet": {
-            "contextualize": {
-                "access": {
-                    "@id" : "https://schema.org/isAccessibleForFree",
-                    "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+                    "scheme": "http://purl.org/dc/terms/title",
+                    "type": "string"
                 }
             }
         },
         "expected": {
             "@context": {
-                "access": {
-                  "@id": "https://schema.org/isAccessibleForFree",
-                  "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+                "title": {
+                    "@id": "http://purl.org/dc/terms/title",
+                    "@type": "string"
+                }
+            }
+        }
+    },
+    "Generate a compacted JSON-LD from input": {
+        "input": {
+            "title": "An example of string value"
+        },
+        "stylesheet": {
+            "context": {
+                "title": {
+                    "scheme": "http://purl.org/dc/terms/title",
+                    "type": "string"
                 }
             },
-            "access": true
+            "jsonld": "compacted"
+        },
+        "expected": {
+            "@context": {
+                "title": {
+                    "@id": "http://purl.org/dc/terms/title",
+                    "@type": "string"
+                }
+            },
+            "title": "An example of string value"
+        }
+    },
+    "Remove non-terminal properties from JSON-LD": {
+        "input": {
+            "field": "value"
+        },
+        "stylesheet": {
+            "$title": {
+                "get": "field",
+                "capitalize": true
+            },
+            "context": {
+                "title": {
+                    "scheme": "http://purl.org/dc/terms/title",
+                    "type": "string"
+                }
+            },
+            "jsonld": "compacted"
+        },
+        "expected": {
+            "@context": {
+                "title": {
+                    "@id": "http://purl.org/dc/terms/title",
+                    "@type": "string"
+                }
+            },
+            "title": "Value"
         }
     },
     "Output an expanded JSON-LD": {

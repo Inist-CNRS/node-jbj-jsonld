@@ -8,7 +8,7 @@ JBJ.use(require('../src/'));
 
 describe('JSON-LD', function () {
   Object.keys(examples).forEach(function (example) {
-    if (example === 'skip') { return; }
+    if (example.slice(0,4) === 'skip') { return; }
     it(example, function (done) {
       var input      = examples[example].input;
       var stylesheet = examples[example].stylesheet;
