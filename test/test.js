@@ -13,6 +13,10 @@ describe('JSON-LD', function () {
       var stylesheet = examples[example].stylesheet;
       var expected   = examples[example].expected;
       JBJ.render(stylesheet, input, function (err, output) {
+        if (err) {
+          console.error(err);
+          done(err);
+        }
         assert.deepEqual(output, expected);
         done(err);
       });
