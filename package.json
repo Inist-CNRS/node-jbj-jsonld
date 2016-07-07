@@ -4,7 +4,9 @@
   "description": "JBJ JSON-LD module",
   "main": "lib/index.js",
   "scripts": {
-    "test": "babel-istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec",
+    "test": "babel-istanbul cover ./node_modules/mocha/bin/_mocha -- -R spec test/test.js",
+    "test-only": "mocha test/test-lib.js",
+    "pretest-only": "npm run build",
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "lint": "eslint src",
@@ -36,6 +38,7 @@
     "mocha": "^2.5.3"
   },
   "dependencies": {
+    "clone": "^1.0.2",
     "jsonld": "^0.4.11"
   }
 }

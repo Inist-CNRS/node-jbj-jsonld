@@ -3,7 +3,7 @@ var assert = require('assert');
 var JBJ = require('jbj');
 var examples = require('./examples.json');
 
-JBJ.use(require('../src/'));
+JBJ.use(require('../lib/'));
 
 describe('JSON-LD', function () {
   Object.keys(examples).forEach(function (example) {

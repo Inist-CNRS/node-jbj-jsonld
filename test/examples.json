@@ -42,6 +42,7 @@
             "title": "An example of string value"
         }
     },
+    "skip": {
     "Remove non-terminal properties from JSON-LD": {
         "input": {
             "field": "value"
@@ -136,4 +137,5 @@
             }]
         }
     }
+}
 }
