@@ -64,15 +64,20 @@ module.exports = function jbjJsonld() {
         break;
       case 'compacted': {
         const context = res['@context'];
-        const doc = clone(res);
-        Reflect.deleteProperty(doc, '@context');
-        debug(' context', context);
-        debug(' doc', doc);
         jsonld.compact(res, context, (err, compacted) => {
           if (err) {
             return next(err);
           }
           return next(null, compacted);
+        });
+        break;
+      }
+      case 'flattened': {
+        jsonld.flatten(res, (err, flattened) => {
+          if (err) {
+            return next(err);
+          }
+          return next(null, flattened);
         });
         break;
       }

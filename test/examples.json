@@ -116,7 +116,6 @@
           "access": true
         }
     },
-    "skip": {
     "Output a flattened JSON-LD": {
         "input": {
             "@context": {
@@ -130,15 +129,12 @@
         "stylesheet": {
             "jsonld": "flattened"
         },
-        "expected": {
-            "@graph": [{
-                "@id": "_:b0",
-                "https://schema.org/isAccessibleForFree": {
-                    "@type": "https://www.w3.org/TR/xmlschema-2/#boolean",
-                    "@value": true
-                }
+        "expected": [{
+            "@id": "_:b0",
+            "https://schema.org/isAccessibleForFree": [{
+                "@type": "https://www.w3.org/TR/xmlschema-2/#boolean",
+                "@value": true
             }]
-        }
+        }]
     }
-}
 }
