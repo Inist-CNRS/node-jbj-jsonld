@@ -1,7 +1,9 @@
 import * as assert from 'assert';
 import clone from 'clone';
+import debugFactory from 'debug';
+const debug = debugFactory('jbj:jsonld');
 
-module.exports = function jsonld(exec, execmap) {
+module.exports = function jsonld() {
   const filters = {}  ;
 
   filters.context = (input, arg, next) => {
@@ -9,10 +11,10 @@ module.exports = function jsonld(exec, execmap) {
 
     const res = clone(input);
     const context = input['@context'] || {};
-    console.log('context1:',context);
+    debug('context1:',context);
 
     for (let fieldName in arg) {
-      console.log(` ${fieldName}`, arg[fieldName]);
+      debug(` ${fieldName}`, arg[fieldName]);
       assert.ok(arg[fieldName].scheme, `${fieldName}'s context must have a scheme.`);
       context[fieldName] = {
         '@id': arg[fieldName].scheme
@@ -21,10 +23,10 @@ module.exports = function jsonld(exec, execmap) {
         context[fieldName]['@type'] = arg[fieldName].type;
       }
     }
-    console.log('context2:',context);
+    debug('context2:',context);
 
     res['@context'] = context;
-    console.log(res);
+    debug('res',res);
     return next(null, res);
   }
 
