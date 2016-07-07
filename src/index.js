@@ -39,13 +39,21 @@ module.exports = function jbjJsonld() {
     return next(null, res);
   };
 
-
-  filters.jsonld = (input, arg, next) => {
+  /**
+   * Generate a JSON-LD from an input containing a JSON-LD context, in various
+   * modes.
+   *
+   * @param  {Object}   input a JSON object containing a valid context
+   * @param  {String}   mode  'compacted', 'flattened', or 'expanded'
+   * @param  {Function} next  next JBJ action
+   */
+  filters.jsonld = (input, mode, next) => {
     assert.equal(typeof(input), 'object');
     assert.ok(input['@context'], 'The input of "context" action should contain a @context');
 
     const res = clone(input);
 
+    // Remove non-terminal properties from JSON-LD
     const allowedFields = [...Object.keys(input['@context']), '@context'];
     for (let fieldName in input) {
       if (!allowedFields.includes(fieldName)) {
@@ -53,7 +61,8 @@ module.exports = function jbjJsonld() {
       }
     }
 
-    switch (arg) {
+    // Generate the JSON-LD according to the mode
+    switch (mode) {
       case 'expanded':
         jsonld.expand(res, (err, expanded) => {
           if (err) {

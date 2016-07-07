@@ -42,39 +42,157 @@ $ npm test
 
 Once the module is declared as used for JBJ, you can use the following actions:
 
-<a id="ldScheme"</a>
-### ldScheme: [ field, uri ]
+<a id="context"</a>
+### context: { field: {scheme, type} }
 
-Associate an `URI` to the `field` given in parameter, and put it into a `@context` part of the object.
+Add a context in the result.
 
-<a id="getJsonLdField"></a>
-### getJsonLdField: URI | [URI, language]
+> **Warning:** the context is required to use the [jsonld](#jsonld) action.
 
-Get the value of the field which URI is given in parameter, and declared in the
-`@content` part of the JSON-LD.
-
+Example 1: generate a valid JSON-LD `@context`.
 ```json
 {
     "input": {
-        "title": "A great title"
     },
-
     "stylesheet": {
-        "ldScheme": [ "title", "http://purl.org/dc/terms/title" ]
+        "context": {
+            "title": {
+                "scheme": "http://purl.org/dc/terms/title",
+                "type": "https://www.w3.org/TR/xmlschema-2/#string"
+            }
+        }
     },
-
     "expected": {
         "@context": {
             "title": {
-                "@id": "http://purl.org/dc/terms/title"
+                "@id": "http://purl.org/dc/terms/title",
+                "@type": "https://www.w3.org/TR/xmlschema-2/#string"
             }
-        },
-        "title": "A great title"
+        }
     }
 }
 ```
 
+Example 2: Generate a compacted JSON-LD from input
+```json
+{
+    "input": {
+        "title": "An example of string value"
+    },
+    "stylesheet": {
+        "context": {
+            "title": {
+                "scheme": "http://purl.org/dc/terms/title",
+                "type": "https://www.w3.org/TR/xmlschema-2/#string"
+            }
+        },
+        "jsonld": "compacted"
+    },
+    "expected": {
+        "@context": {
+            "title": {
+                "@id": "http://purl.org/dc/terms/title",
+                "@type": "https://www.w3.org/TR/xmlschema-2/#string"
+            }
+        },
+        "title": "An example of string value"
+    }
+}
+```
 
+<a id="jsonld"></a>
+### jsonld: mode
+
+Generate a JSON-LD from an input containing a JSON-LD context (see
+[context](#context)), in various modes:
+
+- [compacted](http://json-ld.org/spec/latest/json-ld/#compacted-document-form) (default)
+- [flattened](http://json-ld.org/spec/latest/json-ld/#flattened-document-form)
+- [expanded](http://json-ld.org/spec/latest/json-ld/#expanded-document-form )
+
+Example 1: Remove non-terminal properties from JSON-LD (here, the `field` part)
+```json
+{
+    "input": {
+        "field": "value"
+    },
+    "stylesheet": {
+        "$title": {
+            "get": "field",
+            "capitalize": true
+        },
+        "context": {
+            "title": {
+                "scheme": "http://purl.org/dc/terms/title",
+                "type": "https://www.w3.org/TR/xmlschema-2/#string"
+            }
+        },
+        "jsonld": "compacted"
+    },
+    "expected": {
+        "@context": {
+            "title": {
+                "@id": "http://purl.org/dc/terms/title",
+                "@type": "https://www.w3.org/TR/xmlschema-2/#string"
+            }
+        },
+        "title": "Value"
+    }
+}
+```
+
+Example 2: expanded JSON-LD
+```json
+{
+    "input": {
+        "@context": {
+            "access": {
+              "@id": "https://schema.org/isAccessibleForFree",
+              "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+            }
+        },
+        "access": true
+    },
+    "stylesheet": {
+        "jsonld": "expanded"
+    },
+    "expected": [
+        {
+            "https://schema.org/isAccessibleForFree": [
+                {
+                "@type": "https://www.w3.org/TR/xmlschema-2/#boolean",
+                "@value": true
+                }
+            ]
+        }
+    ]
+}
+```
+
+Example 3: flattened JSON-LD
+```json
+{
+        "input": {
+            "@context": {
+                "access": {
+                  "@id": "https://schema.org/isAccessibleForFree",
+                  "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
+                }
+            },
+            "access": true
+        },
+        "stylesheet": {
+            "jsonld": "flattened"
+        },
+        "expected": [{
+            "@id": "_:b0",
+            "https://schema.org/isAccessibleForFree": [{
+                "@type": "https://www.w3.org/TR/xmlschema-2/#boolean",
+                "@value": true
+            }]
+        }]
+    }
+```
 
 ## Examples
 
@@ -90,5 +208,4 @@ http://Inist-CNRS.github.io/jbj-playground/
 ## License
 
 [MIT](https://github.com/Inist-CNRS/node-jbj-jsonld/blob/master/LICENSE)
-
 
