@@ -18,7 +18,7 @@ module.exports = function jsonld() {
       assert.ok(arg[fieldName].scheme, `${fieldName}'s context must have a scheme.`);
       context[fieldName] = {
         '@id': arg[fieldName].scheme
-      }
+      };
       if (arg[fieldName].type) {
         context[fieldName]['@type'] = arg[fieldName].type;
       }
@@ -28,7 +28,7 @@ module.exports = function jsonld() {
     res['@context'] = context;
     debug('res',res);
     return next(null, res);
-  }
+  };
 
   return filters;
 };
