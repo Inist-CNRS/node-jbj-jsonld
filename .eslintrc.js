@@ -180,7 +180,7 @@ module.exports = {
         "prefer-spread": "error",
         "prefer-template": "error",
         "quote-props": "error",
-        "quotes": "off",
+        "quotes": ["warn", "single"],
         "radix": "error",
         "require-jsdoc": "error",
         "rest-spread-spacing": "error",
@@ -205,7 +205,7 @@ module.exports = {
             "error",
             "never"
         ],
-        "valid-jsdoc": "error",
+        "valid-jsdoc": "off",
         "vars-on-top": "error",
         "wrap-iife": "error",
         "wrap-regex": "error",
