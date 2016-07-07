@@ -2,9 +2,10 @@ import 'babel-polyfill';
 import * as assert from 'assert';
 import clone from 'clone';
 import debugFactory from 'debug';
+import jsonld from 'jsonld';
 const debug = debugFactory('jbj:jsonld');
 
-module.exports = function jsonld() {
+module.exports = function jbjJsonld() {
   const filters = {}  ;
 
   /**
@@ -38,6 +39,7 @@ module.exports = function jsonld() {
     return next(null, res);
   };
 
+
   filters.jsonld = (input, arg, next) => {
     assert.equal(typeof(input), 'object');
     assert.ok(input['@context'], 'The input of "context" action should contain a @context');
@@ -45,17 +47,25 @@ module.exports = function jsonld() {
     const res = clone(input);
 
     const allowedFields = [...Object.keys(input['@context']), '@context'];
-    debug('allowedFields', allowedFields);
-    debug('isArray allowedFields', Array.isArray(allowedFields));
-    debug('allowedFields.includes', allowedFields.includes);
     for (let fieldName in input) {
       if (!allowedFields.includes(fieldName)) {
         Reflect.deleteProperty(res, fieldName);
       }
     }
 
-    debug('resJsonld', res);
-    return next(null, res);
+    switch (arg) {
+      case 'expanded':
+        jsonld.expand(res, (err, expanded) => {
+          if (err) {
+            return next(err);
+          }
+          return next(null, expanded);
+        });
+        break;
+      default:
+        debug('default resJsonld', res);
+        return next(null, res);
+    }
   };
 
   return filters;

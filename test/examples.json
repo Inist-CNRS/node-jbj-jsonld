@@ -69,7 +69,6 @@
             "title": "Value"
         }
     },
-    "skip": {
     "Output an expanded JSON-LD": {
         "input": {
             "@context": {
@@ -94,6 +93,7 @@
             }
         ]
     },
+    "skip": {
     "Output a compacted JSON-LD": {
         "input": {
             "@context": {
