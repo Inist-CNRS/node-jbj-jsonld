@@ -62,6 +62,20 @@ module.exports = function jbjJsonld() {
           return next(null, expanded);
         });
         break;
+      case 'compacted': {
+        const context = res['@context'];
+        const doc = clone(res);
+        Reflect.deleteProperty(doc, '@context');
+        debug(' context', context);
+        debug(' doc', doc);
+        jsonld.compact(res, context, (err, compacted) => {
+          if (err) {
+            return next(err);
+          }
+          return next(null, compacted);
+        });
+        break;
+      }
       default:
         debug('default resJsonld', res);
         return next(null, res);

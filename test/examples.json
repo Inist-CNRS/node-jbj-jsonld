@@ -6,7 +6,7 @@
             "context": {
                 "title": {
                     "scheme": "http://purl.org/dc/terms/title",
-                    "type": "string"
+                    "type": "https://www.w3.org/TR/xmlschema-2/#string"
                 }
             }
         },
@@ -14,7 +14,7 @@
             "@context": {
                 "title": {
                     "@id": "http://purl.org/dc/terms/title",
-                    "@type": "string"
+                    "@type": "https://www.w3.org/TR/xmlschema-2/#string"
                 }
             }
         }
@@ -27,7 +27,7 @@
             "context": {
                 "title": {
                     "scheme": "http://purl.org/dc/terms/title",
-                    "type": "string"
+                    "type": "https://www.w3.org/TR/xmlschema-2/#string"
                 }
             },
             "jsonld": "compacted"
@@ -36,7 +36,7 @@
             "@context": {
                 "title": {
                     "@id": "http://purl.org/dc/terms/title",
-                    "@type": "string"
+                    "@type": "https://www.w3.org/TR/xmlschema-2/#string"
                 }
             },
             "title": "An example of string value"
@@ -54,7 +54,7 @@
             "context": {
                 "title": {
                     "scheme": "http://purl.org/dc/terms/title",
-                    "type": "string"
+                    "type": "https://www.w3.org/TR/xmlschema-2/#string"
                 }
             },
             "jsonld": "compacted"
@@ -63,7 +63,7 @@
             "@context": {
                 "title": {
                     "@id": "http://purl.org/dc/terms/title",
-                    "@type": "string"
+                    "@type": "https://www.w3.org/TR/xmlschema-2/#string"
                 }
             },
             "title": "Value"
@@ -93,7 +93,6 @@
             }
         ]
     },
-    "skip": {
     "Output a compacted JSON-LD": {
         "input": {
             "@context": {
@@ -108,13 +107,17 @@
             "jsonld": "compacted"
         },
         "expected": {
-            "https://schema.org/isAccessibleForFree": {
-                "@type": "https://www.w3.org/TR/xmlschema-2/#boolean",
-                "@value": true
+          "@context": {
+            "access": {
+              "@id": "https://schema.org/isAccessibleForFree",
+              "@type": "https://www.w3.org/TR/xmlschema-2/#boolean"
             }
+          },
+          "access": true
         }
     },
-    "Output a compacted JSON-LD": {
+    "skip": {
+    "Output a flattened JSON-LD": {
         "input": {
             "@context": {
                 "access": {
