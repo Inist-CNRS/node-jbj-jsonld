@@ -19,6 +19,23 @@
             }
         }
     },
+    "Generate a context without type": {
+        "input": {},
+        "stylesheet": {
+            "context": {
+                "title": {
+                    "scheme": "http://purl.org/dc/terms/title"
+                }
+            }
+        },
+        "expected": {
+            "@context": {
+                "title": {
+                    "@id": "http://purl.org/dc/terms/title"
+                }
+            }
+        }
+    },
     "Generate a compacted JSON-LD from input": {
         "input": {
             "title": "An example of string value"
@@ -136,5 +153,109 @@
                 "@value": true
             }]
         }]
+    },
+    "Generate a compacted JSON-LD by default": {
+        "input": {
+            "title": "An example of string value"
+        },
+        "stylesheet": {
+            "context": {
+                "title": {
+                    "scheme": "http://purl.org/dc/terms/title",
+                    "type": "https://www.w3.org/TR/xmlschema-2/#string"
+                }
+            },
+            "jsonld": "default"
+        },
+        "expected": {
+            "@context": {
+                "title": {
+                    "@id": "http://purl.org/dc/terms/title",
+                    "@type": "https://www.w3.org/TR/xmlschema-2/#string"
+                }
+            },
+            "title": "An example of string value"
+        }
+    },
+    "Error jsonld with no input": {
+        "input": null,
+        "stylesheet": {
+            "jsonld": "compacted"
+        },
+        "error": "The input of \"jsonld\" should not be null (jsonld)"
+    },
+    "Error jsonld with input not an object": {
+        "input": "anything",
+        "stylesheet": {
+            "jsonld": "compacted"
+        },
+        "error": "The input of \"jsonld\" should be an object (jsonld)"
+    }
+    ,
+    "Error jsonld with input lacking a @context": {
+        "input": {},
+        "stylesheet": {
+            "jsonld": "compacted"
+        },
+        "error": "The input of \"jsonld\" action should contain a @context (jsonld)"
+    },
+    "Error jsonld compact": {
+        "input": {
+            "@context": {
+                "access": {
+                  "@id": "https://schema.org/isAccessibleForFree",
+                  "@type": "boolean"
+                }
+            },
+            "access": true
+        },
+        "stylesheet": {
+            "jsonld": "compacted"
+        },
+        "error": "Could not expand input before compaction."
+    },
+    "Error jsonld expand": {
+        "input": {
+            "@context": {
+                "access": {
+                  "@id": "https://schema.org/isAccessibleForFree",
+                  "@type": "boolean"
+                }
+            },
+            "access": true
+        },
+        "stylesheet": {
+            "jsonld": "expanded"
+        },
+        "error": "Invalid JSON-LD syntax; an @context @type value must be an absolute IRI."
+    },
+    "Error jsonld flatten": {
+        "input": {
+            "@context": {
+                "access": {
+                  "@id": "https://schema.org/isAccessibleForFree",
+                  "@type": "boolean"
+                }
+            },
+            "access": true
+        },
+        "stylesheet": {
+            "jsonld": "flattened"
+        },
+        "error": "Could not expand input before flattening."
+    },
+    "Error context arg not object": {
+        "input": {},
+        "stylesheet": {
+            "context": "anything"
+        },
+        "error": "argument should be an object (context)"
+    },
+    "Error context no argument": {
+        "input": {},
+        "stylesheet": {
+            "context": null
+        },
+        "error": "argument should not be null (context)"
     }
 }

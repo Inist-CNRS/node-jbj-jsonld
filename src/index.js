@@ -16,7 +16,8 @@ module.exports = function jbjJsonld() {
    * @param  {Function} next  next JBJ action
    */
   filters.context = (input, arg, next) => {
-    assert.equal(typeof(arg), 'object');
+    assert.ok(arg, 'argument should not be null');
+    assert.equal(typeof(arg), 'object', 'argument should be an object');
 
     const res = clone(input);
     const context = input['@context'] || {};
@@ -48,8 +49,9 @@ module.exports = function jbjJsonld() {
    * @param  {Function} next  next JBJ action
    */
   filters.jsonld = (input, mode, next) => {
-    assert.equal(typeof(input), 'object');
-    assert.ok(input['@context'], 'The input of "context" action should contain a @context');
+    assert.ok(input, 'The input of "jsonld" should not be null');
+    assert.equal(typeof(input), 'object', 'The input of "jsonld" should be an object');
+    assert.ok(input['@context'], 'The input of "jsonld" action should contain a @context');
 
     const res = clone(input);
 

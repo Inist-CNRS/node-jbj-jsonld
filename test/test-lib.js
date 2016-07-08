@@ -12,13 +12,11 @@ describe('JSON-LD', function () {
       var input      = examples[example].input;
       var stylesheet = examples[example].stylesheet;
       var expected   = examples[example].expected;
+      var error      = examples[example].error;
       JBJ.render(stylesheet, input, function (err, output) {
-        if (err) {
-          console.error(err);
-          done(err);
-        }
+        assert.equal(err ? err.message : null, error);
         assert.deepEqual(output, expected);
-        done(err);
+        done();
       });
     });
   });
