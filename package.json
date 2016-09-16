@@ -10,7 +10,8 @@
     "prepublish": "npm run build",
     "pretest": "npm run lint",
     "lint": "eslint src test",
-    "build": "babel src --out-dir lib --source-maps inline"
+    "build": "babel src --out-dir lib --source-maps inline",
+    "postversion": "git push && git push --tags"
   },
   "repository": {
     "type": "git",
